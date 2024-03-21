@@ -15,7 +15,8 @@
     "paths": {
       "@libs/*": ["src/libs/*"],
       "@config": ["src/config"],
-      "@middlewares": ["src/middlewares"]
+      "@middlewares": ["src/middlewares"],
+      "@users/*": ["src/services/users/*"]
     },
     "noErrorTruncation": true,
     "forceConsistentCasingInFileNames": true,
