@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { HealthModule } from '@libs/health';
 import { DatabaseModule } from '@libs/datasource';
-import { ConfigModule } from '@nestjs/config';
 import { UserModule } from '@users/module';
+import { VerificationModule } from '@verifications/module';
 
 @Module({
-  imports: [DatabaseModule, HealthModule, ConfigModule.forRoot(), UserModule],
+  imports: [DatabaseModule, HealthModule, UserModule, VerificationModule],
 })
 export class AppModule {}

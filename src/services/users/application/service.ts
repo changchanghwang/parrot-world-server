@@ -40,7 +40,7 @@ export class UserService extends ApplicationService {
     const accessToken = this.jwtService.sign({ id: user.id }, { expiresIn: '1h' });
     const refreshToken = this.jwtService.sign({}, { expiresIn: '30d' });
 
-    user.updateRefreshToken(refreshToken);
+    user.update({ refreshToken });
 
     await this.userRepository.save([user]);
 

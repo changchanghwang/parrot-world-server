@@ -12,12 +12,8 @@ export abstract class Repository<T extends Aggregate> {
     return this.entityManager;
   }
 
-  async save(entities: T[]) {
-    await this.saveEntities(entities);
-  }
-
-  private async saveEntities(entities: T[]) {
-    return this.entityManager.save(entities, { reload: true });
+  async save(entities: T[], txManager?: EntityManager) {
+    await (txManager ?? this.entityManager).save(entities, { reload: true });
   }
 
   public async remove(entity: T) {

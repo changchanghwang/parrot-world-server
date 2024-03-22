@@ -12,6 +12,7 @@ module.exports = {
     '^@config': '<rootDir>/src/config',
     '^@middlewares': '<rootDir>/src/middlewares',
     '^@users/(.*)$': '<rootDir>/src/services/users/$1',
+    '^@verifications/(.*)$': '<rootDir>/src/services/verifications/$1',
   },
   preset: 'ts-jest',
   testMatch: null,

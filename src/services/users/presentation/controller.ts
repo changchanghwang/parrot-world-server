@@ -18,20 +18,20 @@ export class UserController {
 
   @Post('/sign-in')
   async signIn(@Body() body: SignInRequestDto, @Res() res: Response) {
-    const data = await this.userService.signIn(body);
+    const result = await this.userService.signIn(body);
 
-    res.cookie('accessToken', `Bearer ${data.accessToken}`, { maxAge: 1000 * 60 * 60, signed: true });
-    res.cookie('refreshToken', `Bearer ${data.refreshToken}`, { maxAge: 1000 * 60 * 60 * 24 * 30, signed: true });
+    res.cookie('accessToken', `Bearer ${result.accessToken}`, { maxAge: 1000 * 60 * 60, signed: true });
+    res.cookie('refreshToken', `Bearer ${result.refreshToken}`, { maxAge: 1000 * 60 * 60 * 24 * 30, signed: true });
 
-    const errors = await validate(data);
+    const errors = await validate(result);
 
     if (errors.length > 0) {
-      const messege = errors.map((error) => error.constraints);
-      throw badRequest(JSON.stringify(messege), {
+      const message = errors.map((error) => error.constraints);
+      throw badRequest(JSON.stringify(message), {
         errorMessage: '유저 정보가 올바르지 않습니다.',
       });
     }
 
-    res.status(200).json(data.email);
+    res.status(200).json({ data: { email: result.email } });
   }
 }

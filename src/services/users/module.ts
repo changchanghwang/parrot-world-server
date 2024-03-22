@@ -13,5 +13,6 @@ import { ValidateUserService } from './domain/services/validate-user-service';
   ],
   controllers: [UserController],
   providers: [UserService, UserRepository, ValidateUserService],
+  exports: [UserRepository],
 })
 export class UserModule {}

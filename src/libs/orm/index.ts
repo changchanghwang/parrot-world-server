@@ -6,6 +6,12 @@ export type FindOptions = {
   lock?: { mode: 'pessimistic_write' | 'pessimistic_read' };
 };
 
+export type FindOrder = {
+  order: {
+    [prop: string]: 'DESC' | 'ASC';
+  };
+};
+
 export const convertOptions = (options?: FindOptions) => {
   if (!options) {
     return {};

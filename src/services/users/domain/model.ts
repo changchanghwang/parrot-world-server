@@ -13,6 +13,10 @@ type CtorType = {
   password: string;
 };
 
+type UpdateType = {
+  refreshToken?: string;
+};
+
 @Entity()
 export class User extends Aggregate {
   @PrimaryColumn()
@@ -63,8 +67,14 @@ export class User extends Aggregate {
     });
   }
 
-  updateRefreshToken(refreshToken: string) {
-    this.refreshToken = refreshToken;
+  update(args: UpdateType) {
+    const changedArgs: Optional<UpdateType> = this.stripUnchanged(args);
+
+    if (!changedArgs) {
+      return;
+    }
+
+    Object.assign(this, changedArgs);
   }
 
   validatePassword(password: string) {

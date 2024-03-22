@@ -19,6 +19,7 @@ describe('User Model 테스트', () => {
       validateUserService.validateSignUp.mockResolvedValue(undefined);
       const user = await User.from({ email: 'test', password: 'test', nickName: 'test', validateUserService });
 
+      expect(user).toBeInstanceOf(User);
       expect(user).toEqual({
         id: 'test',
         email: 'test',
