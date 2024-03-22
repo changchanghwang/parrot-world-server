@@ -1,7 +1,7 @@
 /**
  * yyyy-mm-dd 형태의 string
  */
-type CalendarTime = string;
+type CalendarDate = `${number}-${number}-${number}`;
 
 type Optional<T> = T | undefined;
 
