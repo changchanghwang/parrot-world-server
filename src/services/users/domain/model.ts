@@ -1,6 +1,7 @@
 import { Aggregate } from '@libs/ddd';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 import { monotonicFactory } from 'ulidx';
+import { comparePassword } from '@libs/hash';
 import type { ValidateUserService } from './services/validate-user-service';
 
 const userRole = ['ADMIN', 'USER'] as const;
@@ -64,5 +65,9 @@ export class User extends Aggregate {
 
   updateRefreshToken(refreshToken: string) {
     this.refreshToken = refreshToken;
+  }
+
+  validatePassword(password: string) {
+    return comparePassword(password, this.password);
   }
 }
