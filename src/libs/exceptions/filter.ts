@@ -11,9 +11,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
     // TODO: use logger
     console.error(error);
 
-    response
-      .status(status)
+    response.status(status).json({
       // @ts-expect-error
-      .json({ errorMessage: error.getResponse().errorMessage || error.getResponse().message });
+      errorMessage: error.getResponse().errorMessage || '예상치 못한 에러가 발생했습니다. 다음에 다시 시도해주세요.',
+    });
   }
 }

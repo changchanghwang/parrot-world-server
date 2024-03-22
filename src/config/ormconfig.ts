@@ -19,7 +19,7 @@ export const getOrmConfig = () => {
         synchronize: false,
         // migrations: ['src/migration/**/*.ts'],
         supportBigNumbers: true,
-        entities: [join(__dirname, '..', 'services', '**', 'infrastructure', 'entity.{ts,js}')],
+        entities: [join(__dirname, '..', 'services', '**', 'domain', 'model.{ts,js}')],
         bigNumberStrings: false,
       };
     case 'development':
@@ -28,7 +28,7 @@ export const getOrmConfig = () => {
         synchronize: true,
         // migrations: ['dist/src/migrations/*.js'],
         supportBigNumbers: true,
-        entities: [join(__dirname, '..', 'services', '**', 'infrastructure', 'entity.{ts,js}')],
+        entities: [join(__dirname, '..', 'services', '**', 'domain', 'model.{ts,js}')],
         bigNumberStrings: false,
         logging: true,
       };
@@ -43,7 +43,7 @@ export const getOrmConfig = () => {
         synchronize: false,
         migrations: ['src/migrations/*{.ts,.js}'],
         supportBigNumbers: true,
-        entities: [join(__dirname, '..', 'services', '**', 'infrastructure', 'entity.{ts,js}')],
+        entities: [join(__dirname, '..', 'services', '**', 'domain', 'model.{ts,js}')],
         bigNumberStrings: false,
       };
     default:
@@ -52,7 +52,7 @@ export const getOrmConfig = () => {
         synchronize: false,
         migrations: ['dist/src/migrations/*.js'],
         supportBigNumbers: true,
-        entities: [join(__dirname, '..', 'services', '**', 'infrastructure', 'entity.{ts,js}')],
+        entities: [join(__dirname, '..', 'services', '**', 'domain', 'model.{ts,js}')],
         bigNumberStrings: false,
       };
   }
