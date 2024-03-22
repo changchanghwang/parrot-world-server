@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from '@libs/ddd';
 import { FindOptions, FindOrder, InValues, convertOptions } from '@libs/orm';
 import { Verification } from '../domain/model';
+import type { VerificationSpec } from '../domain/specs/verification-spec';
 
 @Injectable()
 export class VerificationRepository extends Repository<Verification> {
@@ -15,5 +16,9 @@ export class VerificationRepository extends Repository<Verification> {
       ...convertOptions(options),
       ...order,
     });
+  }
+
+  async findSpec(spec: VerificationSpec, options?: FindOptions) {
+    return spec.find(this, options);
   }
 }

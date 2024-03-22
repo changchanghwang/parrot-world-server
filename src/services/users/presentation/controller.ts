@@ -17,6 +17,7 @@ export class UserController {
   }
 
   @Post('/sign-in')
+  @HttpCode(200)
   async signIn(@Body() body: SignInRequestDto, @Res() res: Response) {
     const result = await this.userService.signIn(body);
 

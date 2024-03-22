@@ -5,6 +5,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { VerificationRepository } from '../infrastructure/repository';
 import { Verification, VerificationType } from '../domain/model';
 import { badRequest } from '../../../libs/exceptions';
+import { ValidVerificationSpec } from '../domain/specs';
 
 @Injectable()
 export class VerificationService extends ApplicationService {
@@ -30,6 +31,13 @@ export class VerificationService extends ApplicationService {
     // TODO: event로 분리, 분리하게되었을때 expiredAt은..?
     await this.send(verification);
     return { id: verification.id, expiredAt: verification.expiredAt! };
+  }
+
+  async confirm(id: string, { code }: { code: string }) {
+    const [verification] = await this.verificationRepository.findSpec(new ValidVerificationSpec({ id }));
+
+    verification.verify(code);
+    await this.verificationRepository.save([verification]);
   }
 
   private async send(verification: Verification) {

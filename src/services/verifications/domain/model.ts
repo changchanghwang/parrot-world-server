@@ -66,4 +66,14 @@ export class Verification extends Aggregate {
     this.expiredAt = expiredAt;
     this.sentAt = new Date();
   }
+
+  verify(code?: string) {
+    if (code && this.code !== code) {
+      throw badRequest(`Invalid Code(${code}) is entered.`, {
+        errorMessage: '코드가 일치하지 않습니다. 다시 확인해주세요.',
+      });
+    }
+
+    this.verifiedAt = new Date();
+  }
 }
