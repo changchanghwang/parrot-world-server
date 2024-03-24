@@ -23,3 +23,29 @@ export class SignUpRequestDto {
     }
   }
 }
+
+export class SignUpResponseDto {
+  @IsNotEmpty()
+  @IsEmail()
+  email!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  accessToken!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  refreshToken!: string;
+
+  constructor(args: { email: string; accessToken: string; refreshToken: string }) {
+    if (args) {
+      this.email = args.email;
+      this.accessToken = args.accessToken;
+      this.refreshToken = args.refreshToken;
+    }
+  }
+
+  static from(args: { email: string; accessToken: string; refreshToken: string }) {
+    return new SignUpResponseDto(args);
+  }
+}
