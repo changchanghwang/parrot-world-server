@@ -55,6 +55,6 @@ export class UserService extends ApplicationService {
   }
 
   async checkDuplicated({ nickName }: { nickName: string }) {
-    return this.validateUserService.checkDuplicated({ nickName });
+    return this.validateUserService.checkDuplicatedNickName(nickName);
   }
 }
