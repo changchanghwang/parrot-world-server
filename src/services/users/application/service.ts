@@ -4,7 +4,7 @@ import { ApplicationService } from '@libs/ddd';
 import { hashPassword } from '@libs/hash';
 import { UserRepository } from '../infrastructure/repository';
 import { User } from '../domain/model';
-import { SignUpRequestDto } from '../dto/sign-up-dto';
+import { SignUpRequestDto, SignUpResponseDto } from '../dto/sign-up-dto';
 import { ValidateUserService } from '../domain/services/validate-user-service';
 import { SignInResponseDto } from '../dto/sing-in-dto';
 
@@ -27,7 +27,14 @@ export class UserService extends ApplicationService {
       password: hashedPassword,
       validateUserService: this.validateUserService,
     });
+    const accessToken = this.jwtService.sign({ id: user.id }, { expiresIn: '1h' });
+    const refreshToken = this.jwtService.sign({}, { expiresIn: '30d' });
+
+    user.update({ refreshToken });
+
     await this.userRepository.save([user]);
+
+    return SignUpResponseDto.from({ email, accessToken, refreshToken });
   }
 
   async signIn({ email, password }: { email: string; password: string }) {
@@ -45,5 +52,9 @@ export class UserService extends ApplicationService {
     await this.userRepository.save([user]);
 
     return SignInResponseDto.from({ email, accessToken, refreshToken });
+  }
+
+  async checkDuplicated({ nickName }: { nickName: string }) {
+    return this.validateUserService.checkDuplicatedNickName(nickName);
   }
 }
