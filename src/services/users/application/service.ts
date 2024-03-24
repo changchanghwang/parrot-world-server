@@ -55,7 +55,6 @@ export class UserService extends ApplicationService {
   }
 
   async checkDuplicated({ nickName }: { nickName: string }) {
-    const [user] = await this.userRepository.find({ nickName });
-    return !!user;
+    return this.validateUserService.checkDuplicated({ nickName });
   }
 }
