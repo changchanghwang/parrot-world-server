@@ -13,6 +13,8 @@ module.exports = {
     '^@middlewares': '<rootDir>/src/middlewares',
     '^@users/(.*)$': '<rootDir>/src/services/users/$1',
     '^@verifications/(.*)$': '<rootDir>/src/services/verifications/$1',
+    '^@categories/(.*)$': '<rootDir>/src/services/categories/$1',
+    '^@articles/(.*)$': '<rootDir>/src/services/articles/$1',
   },
   preset: 'ts-jest',
   testMatch: null,

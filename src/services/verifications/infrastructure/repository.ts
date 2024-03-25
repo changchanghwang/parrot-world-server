@@ -5,7 +5,7 @@ import { Verification } from '../domain/model';
 import type { VerificationSpec } from '../domain/specs/verification-spec';
 
 @Injectable()
-export class VerificationRepository extends Repository<Verification> {
+export class VerificationRepository extends Repository<Verification, Verification['id']> {
   entityClass = Verification;
 
   async find(conditions: { ids: Verification['id'][] }, options?: FindOptions, order?: FindOrder) {

@@ -34,6 +34,9 @@ export const forbidden = (message?: string, option?: ErrorOption) => {
   return new ForbiddenException({ message, errorMessage: option?.errorMessage });
 };
 
+/**
+ * 409 Conflict
+ */
 export const conflict = (message?: string, option?: ErrorOption) => {
   return new ConflictException({ message, errorMessage: option?.errorMessage });
 };
@@ -45,11 +48,8 @@ export const validationError = (message?: string, option?: ErrorOption) => {
   return new ValidationErrorException({ message, errorMessage: option?.errorMessage });
 };
 
-/**
- * 501 Not Implemented
- */
-export const notImplemented = (message?: string, option?: ErrorOption) => {
-  return new NotImplementedException({ message, errorMessage: option?.errorMessage });
+export const notFoundEntity = (message?: string, option?: ErrorOption) => {
+  return new NotFoundEntityException({ message, errorMessage: option?.errorMessage });
 };
 
 /**
@@ -57,6 +57,13 @@ export const notImplemented = (message?: string, option?: ErrorOption) => {
  */
 export const internalServerError = (message?: string, option?: ErrorOption) => {
   return new InternalServerErrorException({ message, errorMessage: option?.errorMessage });
+};
+
+/**
+ * 501 Not Implemented
+ */
+export const notImplemented = (message?: string, option?: ErrorOption) => {
+  return new NotImplementedException({ message, errorMessage: option?.errorMessage });
 };
 
 export const optimisticLockVersionMismatch = (message?: string, option?: ErrorOption) => {
@@ -70,6 +77,12 @@ export class OptimisticLockVersionMismatchException extends InternalServerErrorE
 }
 
 export class ValidationErrorException extends InternalServerErrorException {
+  constructor(args: { message?: string } & ErrorOption) {
+    super({ message: args.message, errorMessage: args.errorMessage });
+  }
+}
+
+export class NotFoundEntityException extends InternalServerErrorException {
   constructor(args: { message?: string } & ErrorOption) {
     super({ message: args.message, errorMessage: args.errorMessage });
   }

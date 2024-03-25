@@ -17,7 +17,9 @@
       "@config": ["src/config"],
       "@middlewares": ["src/middlewares"],
       "@users/*": ["src/services/users/*"],
-      "@verifications/*": ["src/services/verifications/*"]
+      "@verifications/*": ["src/services/verifications/*"],
+      "@categories/*": ["src/services/categories/*"],
+      "@articles/*": ["src/services/articles/*"]
     },
     "noErrorTruncation": true,
     "forceConsistentCasingInFileNames": true,
