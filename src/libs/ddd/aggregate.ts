@@ -2,7 +2,7 @@ import { isEqual } from 'lodash';
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { stripUndefined } from '../common';
 
-export class Aggregate {
+export abstract class Aggregate {
   @CreateDateColumn()
   private createdAt!: Date;
 
