@@ -24,7 +24,7 @@ export class FileService extends ApplicationService {
     await this.bucket.upload(id, stream);
     const uploadFile = new FileModel({
       id,
-      name,
+      name: `${name}.${extension}`,
       contentType: file.mimetype,
       path: this.bucket.bucketId,
     });
@@ -39,6 +39,7 @@ export class FileService extends ApplicationService {
       files.map(async (file) => {
         return {
           id: file.id,
+          name: file.name,
           publicUrl: await this.bucket.getPublicUrl(file.id),
         };
       }),
