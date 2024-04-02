@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { EntityManager, type ObjectType } from 'typeorm';
 import type { Aggregate } from './aggregate';
 import { notFoundEntity } from '../exceptions';
+import { InValues } from '../orm';
 
 @Injectable()
 export abstract class Repository<T extends Aggregate, ID = number> {
@@ -22,11 +23,15 @@ export abstract class Repository<T extends Aggregate, ID = number> {
   }
 
   async findOneOrFail(id: ID) {
-    // @ts-expect-error
-    const entity = await this.entityManager.findOne(this.entityClass, { where: { id } });
+    const [entity] = await this.findByIds([id]);
     if (!entity) {
       throw notFoundEntity(`Entity(${this.entityClass.name}) not found. Id: '${id}'`);
     }
     return entity;
+  }
+
+  async findByIds(ids: ID[]) {
+    // @ts-expect-error
+    return this.entityManager.findBy(this.entityClass, { id: InValues(ids) });
   }
 }

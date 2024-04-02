@@ -27,7 +27,7 @@ export class Article extends Aggregate {
   @Column()
   categoryCode!: string;
 
-  @Column()
+  @Column({ type: 'simple-array' })
   fileIds!: string[];
 
   constructor(args: CtorType) {

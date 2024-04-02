@@ -15,6 +15,7 @@ module.exports = {
     '^@verifications/(.*)$': '<rootDir>/src/services/verifications/$1',
     '^@categories/(.*)$': '<rootDir>/src/services/categories/$1',
     '^@articles/(.*)$': '<rootDir>/src/services/articles/$1',
+    '^@files/(.*)$': '<rootDir>/src/services/files/$1',
   },
   preset: 'ts-jest',
   testMatch: null,

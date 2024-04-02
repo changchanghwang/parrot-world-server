@@ -19,7 +19,8 @@
       "@users/*": ["src/services/users/*"],
       "@verifications/*": ["src/services/verifications/*"],
       "@categories/*": ["src/services/categories/*"],
-      "@articles/*": ["src/services/articles/*"]
+      "@articles/*": ["src/services/articles/*"],
+      "@files/*": ["src/services/files/*"]
     },
     "noErrorTruncation": true,
     "forceConsistentCasingInFileNames": true,
