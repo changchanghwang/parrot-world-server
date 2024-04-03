@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, HttpCode, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import type { User } from '@users/domain/model';
 import { AuthGuard } from '@libs/auth';
 import { ArticleService } from '../application/service';
@@ -26,5 +26,14 @@ export class ArticleController {
 
     const data = await this.articleService.update({ user: user as User }, id, body);
     return { data };
+  }
+
+  @Delete('/:id')
+  @UseGuards(AuthGuard)
+  async delete(@Req() req: Request, @Param() param: { id: string }) {
+    const { user } = req.state;
+    const { id } = param;
+
+    await this.articleService.delete({ user: user as User }, id);
   }
 }

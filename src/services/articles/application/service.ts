@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { ApplicationService } from '@libs/ddd';
+import { ApplicationService, SoftDeletable } from '@libs/ddd';
 import { User } from '@users/domain/model';
 import { ArticleRepository } from '../infrastructure/repository';
 import { Article } from '../domain/model';
-import { UpdatableArticleSpec } from '../domain/specs';
+import { DeletableArticleSpec, UpdatableArticleSpec } from '../domain/specs';
 
 @Injectable()
+@SoftDeletable()
 export class ArticleService extends ApplicationService {
   constructor(private articleRepository: ArticleRepository) {
     super();
@@ -39,5 +40,10 @@ export class ArticleService extends ApplicationService {
     article.update({ title, content, categoryCode, fileIds });
     await this.articleRepository.save([article]);
     return article;
+  }
+
+  async delete({ user }: { user: User }, articleId: string) {
+    const [article] = await this.articleRepository.findSpec(new DeletableArticleSpec({ user, id: articleId }));
+    await this.articleRepository.remove(article);
   }
 }

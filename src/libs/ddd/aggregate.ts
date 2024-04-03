@@ -1,5 +1,5 @@
 import { isEqual } from 'lodash';
-import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { CreateDateColumn, UpdateDateColumn, getMetadataArgsStorage } from 'typeorm';
 import { stripUndefined } from '../common';
 
 export abstract class Aggregate {
@@ -23,4 +23,22 @@ export abstract class Aggregate {
 
     return stripUndefined(compared);
   }
+}
+
+export function SoftDeletable(options?: { propertyName?: string }) {
+  return function (ctor: new (...args: any[]) => unknown) {
+    getMetadataArgsStorage().columns.push({
+      target: ctor,
+      propertyName: options?.propertyName || 'deletedAt',
+      mode: 'deleteDate',
+      options: {},
+    });
+
+    ctor.prototype.isSoftDeletable = true;
+  };
+}
+
+export function isSoftDeletable(aggregate: Aggregate) {
+  // @ts-expect-error
+  return aggregate.isSoftDeletable;
 }
