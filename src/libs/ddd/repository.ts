@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { EntityManager, type ObjectType } from 'typeorm';
-import type { Aggregate } from './aggregate';
+import { isSoftDeletable, type Aggregate } from './aggregate';
 import { notFoundEntity } from '../exceptions';
 import { InValues } from '../orm';
 
@@ -19,7 +19,7 @@ export abstract class Repository<T extends Aggregate, ID = number> {
   }
 
   async remove(entity: T) {
-    await this.entityManager.remove(entity);
+    await (isSoftDeletable(entity) ? this.entityManager.softRemove(entity) : this.entityManager.remove(entity));
   }
 
   async findOneOrFail(id: ID) {
