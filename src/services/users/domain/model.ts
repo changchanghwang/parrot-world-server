@@ -80,4 +80,8 @@ export class User extends Aggregate {
   validatePassword(password: string) {
     return comparePassword(password, this.password);
   }
+
+  isAdmin() {
+    return this.role === 'ADMIN';
+  }
 }
