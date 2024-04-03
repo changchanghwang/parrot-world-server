@@ -10,6 +10,13 @@ type CtorType = {
   fileIds?: string[];
 };
 
+type UpdateArgs = {
+  title?: string;
+  content?: string;
+  categoryCode?: string;
+  fileIds?: string[];
+};
+
 @Entity()
 export class Article extends Aggregate {
   @PrimaryColumn()
@@ -44,5 +51,14 @@ export class Article extends Aggregate {
 
   static from(args: { title: string; content: string; authorId: string; categoryCode: string; fileIds?: string[] }) {
     return new Article(args);
+  }
+
+  update(args: UpdateArgs) {
+    const updatedArgs: UpdateArgs | undefined = this.stripUnchanged(args);
+    if (!updatedArgs) {
+      return;
+    }
+
+    Object.assign(this, updatedArgs);
   }
 }

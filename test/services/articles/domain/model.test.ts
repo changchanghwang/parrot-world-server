@@ -1,5 +1,6 @@
 import { Article } from '@articles/domain/model';
 import { monotonicFactory } from 'ulidx';
+import { articleOf } from '..';
 
 jest.mock('ulidx');
 
@@ -27,6 +28,21 @@ describe('Article Model Test', () => {
         categoryCode: 'test',
         fileIds: [],
       });
+    });
+  });
+
+  describe('update test', () => {
+    test('parameter로 들어온 변경된 값을 업데이트 할 수 있다.', () => {
+      const article = articleOf({
+        title: 'testTitle',
+        content: 'testContent',
+      });
+
+      article.update({
+        content: 'test content',
+      });
+
+      expect(article.content).toBe('test content');
     });
   });
 });
