@@ -16,7 +16,7 @@ export abstract class ArticleSpec {
     return this.user.isAdmin();
   }
 
-  isAuthor(articleId: string) {
-    return this.user.id === articleId;
+  isAuthor(authorId: string) {
+    return this.user.id === authorId;
   }
 }

@@ -13,7 +13,7 @@ export class ArticleController {
   @UseGuards(AuthGuard)
   @HttpCode(201)
   async create(@Req() req: Request, @Body() body: CreateArticleDto) {
-    const { user } = req.state;
+    const { user } = req.state as { user: User };
 
     await this.articleService.create({ user: user as User }, body);
   }
@@ -21,7 +21,7 @@ export class ArticleController {
   @Patch('/:id')
   @UseGuards(AuthGuard)
   async update(@Req() req: Request, @Param() param: { id: string }, @Body() body: UpdateArticleDto) {
-    const { user } = req.state;
+    const { user } = req.state as { user: User };
     const { id } = param;
 
     const data = await this.articleService.update({ user: user as User }, id, body);
@@ -31,7 +31,7 @@ export class ArticleController {
   @Delete('/:id')
   @UseGuards(AuthGuard)
   async delete(@Req() req: Request, @Param() param: { id: string }) {
-    const { user } = req.state;
+    const { user } = req.state as { user: User };
     const { id } = param;
 
     await this.articleService.delete({ user: user as User }, id);

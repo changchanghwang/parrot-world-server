@@ -5,14 +5,14 @@ export function articleOf({
   id,
   title,
   content,
-  authorId,
+  userId,
   categoryCode,
   fileIds,
 }: {
   id?: string;
   title?: string;
   content?: string;
-  authorId?: string;
+  userId?: string;
   categoryCode?: string;
   fileIds?: string[];
 }) {
@@ -20,7 +20,7 @@ export function articleOf({
     id: id ?? 'test',
     title: title ?? 'test',
     content: content ?? 'test',
-    authorId: authorId ?? 'test',
+    userId: userId ?? 'test',
     categoryCode: categoryCode ?? 'test',
     fileIds: fileIds ?? [],
   });

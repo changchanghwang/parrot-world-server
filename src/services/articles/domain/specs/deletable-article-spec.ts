@@ -16,7 +16,7 @@ export class DeletableArticleSpec extends ArticleSpec {
   async find(articleRepository: ArticleRepository, options: FindOptions): Promise<Article[]> {
     const [article] = await articleRepository.find({ ids: [this.id] }, options);
 
-    if (this.isAdmin() || this.isAuthor(article.authorId)) {
+    if (this.isAdmin() || this.isAuthor(article.userId)) {
       return [article];
     }
 

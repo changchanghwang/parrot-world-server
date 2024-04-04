@@ -9,12 +9,12 @@ export class ArticleRepository extends Repository<Article, Article['id']> {
   entityClass = Article;
 
   async find(
-    conditions: { ids: string[]; categoryCode?: string; authorId?: string },
+    conditions: { ids: string[]; categoryCode?: string; userId?: string },
     options?: FindOptions,
     order?: FindOrder,
   ) {
     return this.getManager().find(this.entityClass, {
-      where: { categoryCode: conditions.categoryCode, authorId: conditions.authorId, id: InValues(conditions.ids) },
+      where: { categoryCode: conditions.categoryCode, userId: conditions.userId, id: InValues(conditions.ids) },
       ...convertOptions(options),
       ...order,
     });

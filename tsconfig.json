@@ -20,7 +20,8 @@
       "@verifications/*": ["src/services/verifications/*"],
       "@categories/*": ["src/services/categories/*"],
       "@articles/*": ["src/services/articles/*"],
-      "@files/*": ["src/services/files/*"]
+      "@files/*": ["src/services/files/*"],
+      "@comments/*": ["src/services/comments/*"]
     },
     "noErrorTruncation": true,
     "forceConsistentCasingInFileNames": true,
