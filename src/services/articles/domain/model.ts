@@ -5,7 +5,7 @@ import { monotonicFactory } from 'ulidx';
 type CtorType = {
   title: string;
   content: string;
-  authorId: string;
+  userId: string;
   categoryCode: string;
   fileIds?: string[];
 };
@@ -29,7 +29,7 @@ export class Article extends Aggregate {
   content!: string;
 
   @Column()
-  authorId!: string;
+  userId!: string;
 
   @Column()
   categoryCode!: string;
@@ -43,13 +43,13 @@ export class Article extends Aggregate {
       this.id = monotonicFactory()();
       this.title = args.title;
       this.content = args.content;
-      this.authorId = args.authorId;
+      this.userId = args.userId;
       this.categoryCode = args.categoryCode;
       this.fileIds = args.fileIds ?? [];
     }
   }
 
-  static from(args: { title: string; content: string; authorId: string; categoryCode: string; fileIds?: string[] }) {
+  static from(args: { title: string; content: string; userId: string; categoryCode: string; fileIds?: string[] }) {
     return new Article(args);
   }
 

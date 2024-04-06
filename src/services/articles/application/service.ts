@@ -21,7 +21,7 @@ export class ArticleService extends ApplicationService {
       fileIds,
     }: { title: string; content: string; categoryCode: string; fileIds?: string[] },
   ) {
-    const article = Article.from({ title, content, authorId: user.id, categoryCode, fileIds });
+    const article = Article.from({ title, content, userId: user.id, categoryCode, fileIds });
     await this.articleRepository.save([article]);
     return article;
   }

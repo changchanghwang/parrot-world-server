@@ -7,6 +7,7 @@ import { GuardModule } from '@libs/auth';
 import { ArticleModule } from '@articles/module';
 import { CategoryModule } from '@categories/module';
 import { FileModule } from '@files/module';
+import { CommentModule } from './services/comments/module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { FileModule } from '@files/module';
     CategoryModule,
     GuardModule,
     FileModule,
+    CommentModule,
   ],
 })
 export class AppModule {}

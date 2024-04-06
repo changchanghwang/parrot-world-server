@@ -15,7 +15,7 @@ describe('Article Model Test', () => {
       const article = Article.from({
         title: 'test',
         content: 'test',
-        authorId: 'test',
+        userId: 'test',
         categoryCode: 'test',
         fileIds: [],
       });
@@ -24,7 +24,7 @@ describe('Article Model Test', () => {
         id: 'test',
         title: 'test',
         content: 'test',
-        authorId: 'test',
+        userId: 'test',
         categoryCode: 'test',
         fileIds: [],
       });
