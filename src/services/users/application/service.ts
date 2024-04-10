@@ -8,6 +8,7 @@ import { User } from '../domain/model';
 import { SignUpRequestDto, SignUpResponseDto } from '../dto/sign-up-dto';
 import { ValidateUserService } from '../domain/services/validate-user-service';
 import { SignInResponseDto } from '../dto/sing-in-dto';
+import { FilteredUserSpec } from '../domain/specs';
 
 @Injectable()
 export class UserService extends ApplicationService {
@@ -40,6 +41,10 @@ export class UserService extends ApplicationService {
 
   async retrieve({ id }: { id: string }) {
     return this.userRepository.findOneOrFail(id);
+  }
+
+  async getList({ ids }: { ids?: string[] }) {
+    return this.userRepository.findSpec(new FilteredUserSpec({ ids }));
   }
 
   async signIn({ email, password }: { email: string; password: string }) {

@@ -1,13 +1,18 @@
-import { Body, Controller, Delete, HttpCode, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import type { User } from '@users/domain/model';
 import { AuthGuard } from '@libs/auth';
+import { keyBy } from 'lodash';
 import { ArticleService } from '../application/service';
 import { CreateArticleDto } from '../dto/create-dto';
 import { UpdateArticleDto } from '../dto';
+import { UserService } from '../../users/application/service';
 
 @Controller('articles')
 export class ArticleController {
-  constructor(private articleService: ArticleService) {}
+  constructor(
+    private articleService: ArticleService,
+    private userService: UserService,
+  ) {}
 
   @Post()
   @UseGuards(AuthGuard)
@@ -35,5 +40,29 @@ export class ArticleController {
     const { id } = param;
 
     await this.articleService.delete({ user: user as User }, id);
+  }
+
+  @Get()
+  async list(@Query() query: { categoryCode?: string; page: number; limit: number }) {
+    const { page, limit, categoryCode } = query;
+    const result = await this.articleService.getList({ categoryCode, page, limit });
+    const users = await this.userService.getList({ ids: result.items.map((article) => article.userId) });
+    const userOf = keyBy(users, 'id');
+
+    return {
+      data: {
+        ...result,
+        items: result.items.map((article) => {
+          const author = userOf[article.userId];
+          return {
+            ...article,
+            author: {
+              nickName: author?.nickName ?? '앵이브닝',
+              email: author?.email ?? 'evening@angMorning.com',
+            },
+          };
+        }),
+      },
+    };
   }
 }
