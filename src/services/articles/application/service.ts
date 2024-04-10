@@ -3,13 +3,22 @@ import { ApplicationService, SoftDeletable } from '@libs/ddd';
 import { User } from '@users/domain/model';
 import { ArticleRepository } from '../infrastructure/repository';
 import { Article } from '../domain/model';
-import { DeletableArticleSpec, UpdatableArticleSpec } from '../domain/specs';
+import { DeletableArticleSpec, FilteredArticleSpec, UpdatableArticleSpec } from '../domain/specs';
 
 @Injectable()
 @SoftDeletable()
 export class ArticleService extends ApplicationService {
   constructor(private articleRepository: ArticleRepository) {
     super();
+  }
+
+  async getList({ categoryCode, page, limit }: { categoryCode?: string; page: number; limit: number }) {
+    const [articles, count] = await Promise.all([
+      this.articleRepository.findSpec(new FilteredArticleSpec({ categoryCode }), { page, limit }),
+      this.articleRepository.countSpec(new FilteredArticleSpec({ categoryCode })),
+    ]);
+
+    return { items: articles, count };
   }
 
   async create(
