@@ -2,6 +2,7 @@ import { EntityManager } from 'typeorm';
 import { ArticleRepository } from '@articles/infrastructure/repository';
 import { DeletableArticleSpec } from '@articles/domain/specs';
 import { forbidden } from '@libs/exceptions';
+import { CategoryCode } from '@articles/domain/model';
 import { userOf } from '../../../users';
 import { articleOf } from '../..';
 
@@ -22,7 +23,7 @@ describe('DeletableArticleSpec 테스트', () => {
         expect(article).toEqual([
           {
             userId: 'userId',
-            categoryCode: 'test',
+            categoryCode: CategoryCode.ANNOUNCEMENT,
             content: 'test',
             fileIds: [],
             id: 'articleId',
@@ -42,7 +43,7 @@ describe('DeletableArticleSpec 테스트', () => {
         expect(article).toEqual([
           {
             userId: 'userId',
-            categoryCode: 'test',
+            categoryCode: CategoryCode.ANNOUNCEMENT,
             content: 'test',
             fileIds: [],
             id: 'articleId',

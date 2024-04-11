@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from '@libs/ddd';
 import { type FindOptions, type FindOrder, convertOptions } from '@libs/orm';
 import { omit } from 'lodash';
-import { Article, SearchKey } from '../domain/model';
+import { Article, type CategoryCode, type SearchKey } from '../domain/model';
 import type { ArticleSpec } from '../domain/specs/article-spec';
 import { badRequest } from '../../../libs/exceptions';
 
@@ -11,7 +11,12 @@ export class ArticleRepository extends Repository<Article, Article['id']> {
   entityClass = Article;
 
   async find(
-    conditions: { ids?: string[]; categoryCode?: string; userId?: string; search?: { key: SearchKey; value: string } },
+    conditions: {
+      ids?: string[];
+      categoryCode?: CategoryCode;
+      userId?: string;
+      search?: { key: SearchKey; value: string };
+    },
     options?: FindOptions,
     order?: FindOrder,
   ) {
@@ -37,7 +42,7 @@ export class ArticleRepository extends Repository<Article, Article['id']> {
 
   async count(conditions: {
     ids?: string[];
-    categoryCode?: string;
+    categoryCode?: CategoryCode;
     userId?: string;
     search?: { key: SearchKey; value: string };
   }) {
@@ -50,7 +55,7 @@ export class ArticleRepository extends Repository<Article, Article['id']> {
 
   private getQueryBuilder(conditions: {
     ids?: string[];
-    categoryCode?: string;
+    categoryCode?: CategoryCode;
     userId?: string;
     search?: { key: SearchKey; value: string };
   }) {

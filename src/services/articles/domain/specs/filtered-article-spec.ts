@@ -1,11 +1,11 @@
 import type { User } from '@users/domain/model';
 import type { FindOptions } from '../../../../libs/orm';
 import type { ArticleRepository } from '../../infrastructure/repository';
-import type { Article, SearchKey } from '../model';
+import type { Article, CategoryCode, SearchKey } from '../model';
 import { ArticleSpec } from './article-spec';
 
 export class FilteredArticleSpec extends ArticleSpec {
-  private categoryCode?: string;
+  private categoryCode?: CategoryCode;
 
   private search?: { key: SearchKey; value: string };
 
@@ -15,7 +15,7 @@ export class FilteredArticleSpec extends ArticleSpec {
     search,
   }: {
     user?: User;
-    categoryCode?: string;
+    categoryCode?: CategoryCode;
     search?: { key: SearchKey; value: string };
   }) {
     super({ user });

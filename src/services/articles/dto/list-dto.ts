@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-import { SearchKey } from '../domain/model';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { CategoryCode, SearchKey } from '../domain/model';
 
 class SearchDto {
   @IsString()
@@ -12,9 +12,9 @@ class SearchDto {
 }
 
 export class listArticleQueryDto {
-  @IsString()
+  @IsEnum(CategoryCode)
   @IsNotEmpty()
-  categoryCode!: string;
+  categoryCode!: CategoryCode;
 
   @IsNumber()
   @IsNotEmpty()
