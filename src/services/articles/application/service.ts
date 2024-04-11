@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ApplicationService, SoftDeletable } from '@libs/ddd';
 import { User } from '@users/domain/model';
 import { ArticleRepository } from '../infrastructure/repository';
-import { Article } from '../domain/model';
+import { Article, SearchKey } from '../domain/model';
 import { DeletableArticleSpec, FilteredArticleSpec, UpdatableArticleSpec } from '../domain/specs';
 
 @Injectable()
@@ -12,10 +12,20 @@ export class ArticleService extends ApplicationService {
     super();
   }
 
-  async getList({ categoryCode, page, limit }: { categoryCode?: string; page: number; limit: number }) {
+  async getList({
+    categoryCode,
+    page,
+    limit,
+    search,
+  }: {
+    categoryCode?: string;
+    page: number;
+    limit: number;
+    search?: { key: SearchKey; value: string };
+  }) {
     const [articles, count] = await Promise.all([
-      this.articleRepository.findSpec(new FilteredArticleSpec({ categoryCode }), { page, limit }),
-      this.articleRepository.countSpec(new FilteredArticleSpec({ categoryCode })),
+      this.articleRepository.findSpec(new FilteredArticleSpec({ categoryCode, search }), { page, limit }),
+      this.articleRepository.countSpec(new FilteredArticleSpec({ categoryCode, search })),
     ]);
 
     return { items: articles, count };

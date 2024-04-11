@@ -17,6 +17,9 @@ type UpdateArgs = {
   fileIds?: string[];
 };
 
+export const searchKey = ['title', 'withContent', 'author'] as const;
+export type SearchKey = (typeof searchKey)[number];
+
 @Entity()
 export class Article extends Aggregate {
   @PrimaryColumn()

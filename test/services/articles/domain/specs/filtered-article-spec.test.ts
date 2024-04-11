@@ -12,9 +12,16 @@ describe('FilteredArticleSpec 테스트', () => {
     test('repository에 생성자에 받은 데이터를 전달한다.', async () => {
       articleRepository.find.mockResolvedValue([]);
       const adminUser = userOf({ role: 'ADMIN', id: 'adminId' });
-      const spec = new FilteredArticleSpec({ user: adminUser, categoryCode: 'test' });
+      const spec = new FilteredArticleSpec({
+        user: adminUser,
+        categoryCode: 'test',
+        search: { key: 'author', value: 'arthur' },
+      });
       await spec.find(articleRepository, {});
-      expect(articleRepository.find.mock.calls[0][0]).toEqual({ categoryCode: 'test' });
+      expect(articleRepository.find.mock.calls[0][0]).toEqual({
+        categoryCode: 'test',
+        search: { key: 'author', value: 'arthur' },
+      });
     });
   });
 
@@ -22,9 +29,16 @@ describe('FilteredArticleSpec 테스트', () => {
     test('repository에 생성자에 받은 데이터를 전달한다.', async () => {
       articleRepository.find.mockResolvedValue([]);
       const adminUser = userOf({ role: 'ADMIN', id: 'adminId' });
-      const spec = new FilteredArticleSpec({ user: adminUser, categoryCode: 'test' });
+      const spec = new FilteredArticleSpec({
+        user: adminUser,
+        categoryCode: 'test',
+        search: { key: 'author', value: 'arthur' },
+      });
       await spec.count(articleRepository);
-      expect(articleRepository.count.mock.calls[0][0]).toEqual({ categoryCode: 'test' });
+      expect(articleRepository.count.mock.calls[0][0]).toEqual({
+        categoryCode: 'test',
+        search: { key: 'author', value: 'arthur' },
+      });
     });
   });
 });
