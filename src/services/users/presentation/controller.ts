@@ -1,11 +1,13 @@
-import { Body, Controller, Get, HttpCode, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
 import type { Response } from 'express';
 import { validate } from 'class-validator';
 import { badRequest } from '@libs/exceptions';
+import { AuthGuard } from '@libs/auth';
 import { UserService } from '../application/service';
 import { SignUpRequestDto } from '../dto/sign-up-dto';
 import { SignInRequestDto } from '../dto/sing-in-dto';
 import { CheckRequestDto } from '../dto/check-dto';
+import { User } from '../domain/model';
 
 @Controller('users')
 export class UserController {
@@ -56,5 +58,12 @@ export class UserController {
     const isDuplicated = await this.userService.checkDuplicated({ nickName });
 
     return { data: { isDuplicated } };
+  }
+
+  @Get('/self')
+  @UseGuards(AuthGuard)
+  async getSelf(@Req() req: Request) {
+    const { user } = req.state as { user: User };
+    return { data: user };
   }
 }
