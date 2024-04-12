@@ -4,7 +4,7 @@ import { AuthGuard } from '@libs/auth';
 import { keyBy } from 'lodash';
 import { ArticleService } from '../application/service';
 import { CreateArticleDto } from '../dto/create-dto';
-import { UpdateArticleDto } from '../dto';
+import { UpdateArticleDto, listArticleQueryDto } from '../dto';
 import { UserService } from '../../users/application/service';
 
 @Controller('articles')
@@ -43,9 +43,9 @@ export class ArticleController {
   }
 
   @Get()
-  async list(@Query() query: { categoryCode?: string; page: number; limit: number }) {
-    const { page, limit, categoryCode } = query;
-    const result = await this.articleService.getList({ categoryCode, page, limit });
+  async list(@Query() query: listArticleQueryDto) {
+    const { page, limit, categoryCode, search } = query;
+    const result = await this.articleService.getList({ categoryCode, page, limit, search });
     const users = await this.userService.getList({ ids: result.items.map((article) => article.userId) });
     const userOf = keyBy(users, 'id');
 

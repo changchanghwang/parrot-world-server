@@ -1,4 +1,4 @@
-import { Article } from '@articles/domain/model';
+import { Article, CategoryCode } from '@articles/domain/model';
 import { monotonicFactory } from 'ulidx';
 import { articleOf } from '..';
 
@@ -16,7 +16,7 @@ describe('Article Model Test', () => {
         title: 'test',
         content: 'test',
         userId: 'test',
-        categoryCode: 'test',
+        categoryCode: CategoryCode.ANNOUNCEMENT,
         fileIds: [],
       });
       expect(article).toBeInstanceOf(Article);
@@ -25,7 +25,7 @@ describe('Article Model Test', () => {
         title: 'test',
         content: 'test',
         userId: 'test',
-        categoryCode: 'test',
+        categoryCode: CategoryCode.ANNOUNCEMENT,
         fileIds: [],
       });
     });

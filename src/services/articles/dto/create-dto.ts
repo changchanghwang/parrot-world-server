@@ -1,4 +1,5 @@
-import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { CategoryCode } from '../domain/model';
 
 export class CreateArticleDto {
   @IsString()
@@ -9,9 +10,9 @@ export class CreateArticleDto {
   @IsNotEmpty()
   content!: string;
 
-  @IsString()
+  @IsEnum(CategoryCode)
   @IsNotEmpty()
-  categoryCode!: string;
+  categoryCode!: CategoryCode;
 
   @IsArray()
   @IsString({ each: true })

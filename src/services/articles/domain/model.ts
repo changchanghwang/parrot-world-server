@@ -6,7 +6,7 @@ type CtorType = {
   title: string;
   content: string;
   userId: string;
-  categoryCode: string;
+  categoryCode: CategoryCode;
   fileIds?: string[];
 };
 
@@ -16,6 +16,14 @@ type UpdateArgs = {
   categoryCode?: string;
   fileIds?: string[];
 };
+
+export enum CategoryCode {
+  ANNOUNCEMENT = '000000000',
+  FREE = '000010001',
+}
+
+export const searchKey = ['title', 'withContent', 'author'] as const;
+export type SearchKey = (typeof searchKey)[number];
 
 @Entity()
 export class Article extends Aggregate {
@@ -32,7 +40,7 @@ export class Article extends Aggregate {
   userId!: string;
 
   @Column()
-  categoryCode!: string;
+  categoryCode!: CategoryCode;
 
   @Column({ type: 'simple-array' })
   fileIds!: string[];
@@ -49,7 +57,13 @@ export class Article extends Aggregate {
     }
   }
 
-  static from(args: { title: string; content: string; userId: string; categoryCode: string; fileIds?: string[] }) {
+  static from(args: {
+    title: string;
+    content: string;
+    userId: string;
+    categoryCode: CategoryCode;
+    fileIds?: string[];
+  }) {
     return new Article(args);
   }
 

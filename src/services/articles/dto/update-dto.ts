@@ -1,4 +1,5 @@
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsOptional, IsString } from 'class-validator';
+import { CategoryCode } from '../domain/model';
 
 export class UpdateArticleDto {
   @IsString()
@@ -9,9 +10,9 @@ export class UpdateArticleDto {
   @IsOptional()
   content?: string;
 
-  @IsString()
+  @IsEnum(CategoryCode)
   @IsOptional()
-  categoryCode?: string;
+  categoryCode?: CategoryCode;
 
   @IsArray()
   @IsString({ each: true })
