@@ -29,7 +29,8 @@ export class FileService extends ApplicationService {
       path: this.bucket.bucketId,
     });
 
-    await this.fileRepository.save([uploadFile]);
+    const savedFile = await this.fileRepository.save([uploadFile]);
+    return { id: savedFile[0].id, name: savedFile[0].name, publicUrl: await this.bucket.getPublicUrl(savedFile[0].id) };
   }
 
   async getPublicUrls(ids: string[]) {
@@ -37,6 +38,7 @@ export class FileService extends ApplicationService {
 
     return Promise.all(
       files.map(async (file) => {
+        file.validate();
         return {
           id: file.id,
           name: file.name,
