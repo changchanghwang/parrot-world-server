@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Query, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { isArray } from 'lodash';
 import { FileService } from '../application/service';
 
 @Controller('files')
@@ -9,13 +10,15 @@ export class FileController {
   @Post('/')
   @UseInterceptors(FileInterceptor('file', { dest: 'uploads' }))
   async uploadFiles(@UploadedFile() file: Express.Multer.File) {
-    await this.fileService.upload({ file });
+    const data = await this.fileService.upload({ file });
+    return { data };
   }
 
   @Get('/')
   async getFiles(@Query() query: { ids: string[] }) {
     const { ids } = query;
-    const result = await this.fileService.getPublicUrls(ids);
+    const params = isArray(ids) ? ids : [ids];
+    const result = await this.fileService.getPublicUrls(params);
 
     return { data: result };
   }

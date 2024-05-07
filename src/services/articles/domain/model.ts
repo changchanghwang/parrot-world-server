@@ -33,7 +33,7 @@ export class Article extends Aggregate {
   @Column()
   title!: string;
 
-  @Column()
+  @Column({ type: 'text' })
   content!: string;
 
   @Column()

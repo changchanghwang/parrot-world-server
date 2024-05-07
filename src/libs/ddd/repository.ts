@@ -15,7 +15,7 @@ export abstract class Repository<T extends Aggregate, ID = number> {
   }
 
   async save(entities: T[], txManager?: EntityManager) {
-    await (txManager ?? this.entityManager).save(entities, { reload: true });
+    return (txManager ?? this.entityManager).save(entities, { reload: true });
   }
 
   async remove(entity: T) {

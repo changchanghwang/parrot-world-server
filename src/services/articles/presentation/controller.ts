@@ -6,12 +6,14 @@ import { ArticleService } from '../application/service';
 import { CreateArticleDto } from '../dto/create-dto';
 import { UpdateArticleDto, listArticleQueryDto } from '../dto';
 import { UserService } from '../../users/application/service';
+import { FileService } from '../../files/application/service';
 
 @Controller('articles')
 export class ArticleController {
   constructor(
     private articleService: ArticleService,
     private userService: UserService,
+    private fileService: FileService,
   ) {}
 
   @Post()
@@ -20,7 +22,8 @@ export class ArticleController {
   async create(@Req() req: Request, @Body() body: CreateArticleDto) {
     const { user } = req.state as { user: User };
 
-    await this.articleService.create({ user: user as User }, body);
+    const article = await this.articleService.create({ user: user as User }, body);
+    await this.fileService.commit(article.fileIds);
   }
 
   @Patch('/:id')
