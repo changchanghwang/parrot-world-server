@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from '@libs/ddd';
 import { type FindOptions, type FindOrder, convertOptions, InValues } from '@libs/orm';
 import { SalePost, type SaleType } from '../domain/model';
+import { SalePostSpec } from '../domain/specs/sale-post-spec';
 
 @Injectable()
 export class SalePostRepository extends Repository<SalePost, SalePost['id']> {
   entityClass = SalePost;
 
   async find(
-    conditions: { ids?: string[]; userId?: string; types: SaleType[] },
+    conditions: { ids?: string[]; userId?: string; types?: SaleType[] },
     options?: FindOptions,
     order?: FindOrder,
   ) {
@@ -23,7 +24,7 @@ export class SalePostRepository extends Repository<SalePost, SalePost['id']> {
     });
   }
 
-  async count(conditions: { ids?: string[]; userId?: string; types: SaleType[] }) {
+  async count(conditions: { ids?: string[]; userId?: string; types?: SaleType[] }) {
     return this.getManager().count(SalePost, {
       where: {
         id: InValues(conditions.ids),
@@ -33,11 +34,11 @@ export class SalePostRepository extends Repository<SalePost, SalePost['id']> {
     });
   }
 
-  // async findSpec(spec: SalePostSpec, options?: FindOptions) {
-  //   return spec.find(this, options);
-  // }
+  async findSpec(spec: SalePostSpec, options?: FindOptions) {
+    return spec.find(this, options);
+  }
 
-  // async countSpec(spec: SalePostSpec) {
-  //   return spec.count(this);
-  // }
+  async countSpec(spec: SalePostSpec) {
+    return spec.count(this);
+  }
 }
