@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { ApplicationService, SoftDeletable } from '@libs/ddd';
+import { ApplicationService } from '@libs/ddd';
 import { User } from '@users/domain/model';
 import { ArticleRepository } from '../infrastructure/repository';
 import { Article, CategoryCode, SearchKey } from '../domain/model';
 import { DeletableArticleSpec, FilteredArticleSpec, UpdatableArticleSpec } from '../domain/specs';
 
 @Injectable()
-@SoftDeletable()
 export class ArticleService extends ApplicationService {
   constructor(private articleRepository: ArticleRepository) {
     super();

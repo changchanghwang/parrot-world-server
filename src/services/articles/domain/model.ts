@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
-import { Aggregate } from '@libs/ddd';
+import { Aggregate, SoftDeletable } from '@libs/ddd';
 import { monotonicFactory } from 'ulidx';
 
 type CtorType = {
@@ -26,6 +26,7 @@ export const searchKey = ['title', 'withContent', 'author'] as const;
 export type SearchKey = (typeof searchKey)[number];
 
 @Entity()
+@SoftDeletable()
 export class Article extends Aggregate {
   @PrimaryColumn()
   id!: string;

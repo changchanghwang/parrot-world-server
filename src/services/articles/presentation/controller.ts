@@ -22,7 +22,7 @@ export class ArticleController {
   async create(@Req() req: Request, @Body() body: CreateArticleDto) {
     const { user } = req.state as { user: User };
 
-    const article = await this.articleService.create({ user: user as User }, body);
+    const article = await this.articleService.create({ user }, body);
     await this.fileService.commit(article.fileIds);
   }
 
@@ -32,7 +32,7 @@ export class ArticleController {
     const { user } = req.state as { user: User };
     const { id } = param;
 
-    const data = await this.articleService.update({ user: user as User }, id, body);
+    const data = await this.articleService.update({ user }, id, body);
     return { data };
   }
 
@@ -42,7 +42,7 @@ export class ArticleController {
     const { user } = req.state as { user: User };
     const { id } = param;
 
-    await this.articleService.delete({ user: user as User }, id);
+    await this.articleService.delete({ user }, id);
   }
 
   @Get()

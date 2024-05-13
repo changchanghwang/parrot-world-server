@@ -21,7 +21,9 @@
       "@categories/*": ["src/services/categories/*"],
       "@articles/*": ["src/services/articles/*"],
       "@files/*": ["src/services/files/*"],
-      "@comments/*": ["src/services/comments/*"]
+      "@comments/*": ["src/services/comments/*"],
+      "@sale-posts/*": ["src/services/sale-posts/*"],
+      "@value-objects": ["src/services/value-objects"]
     },
     "noErrorTruncation": true,
     "forceConsistentCasingInFileNames": true,
