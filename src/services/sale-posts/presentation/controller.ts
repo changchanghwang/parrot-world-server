@@ -18,7 +18,7 @@ export class SalePostController {
   async create(@Req() req: Request, @Body() body: CreateSalePostDto) {
     const { user } = req.state as { user: User };
 
-    const salePost = await this.salePostService.create({ user: user as User }, body);
+    const salePost = await this.salePostService.create({ user }, body);
     await this.fileService.commit([...salePost.fileIds, salePost.thumbnailId]);
   }
 }
