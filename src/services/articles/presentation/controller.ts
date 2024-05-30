@@ -68,4 +68,21 @@ export class ArticleController {
       },
     };
   }
+
+  @Get('/:id')
+  async retrieve(@Param() param: { id: string }) {
+    const { id } = param;
+    const result = await this.articleService.retrieve({ articleId: id });
+    const user = await this.userService.retrieve({ id: result.userId });
+
+    return {
+      data: {
+        ...result,
+        author: {
+          nickName: user.nickName,
+          email: user.email,
+        },
+      },
+    };
+  }
 }

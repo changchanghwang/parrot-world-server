@@ -30,6 +30,10 @@ export class ArticleService extends ApplicationService {
     return { items: articles, count };
   }
 
+  async retrieve({ articleId }: { articleId: string }) {
+    return this.articleRepository.findOneOrFail(articleId);
+  }
+
   async create(
     { user }: { user: User },
     {
