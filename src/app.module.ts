@@ -7,19 +7,21 @@ import { GuardModule } from '@libs/auth';
 import { ArticleModule } from '@articles/module';
 import { CategoryModule } from '@categories/module';
 import { FileModule } from '@files/module';
-import { CommentModule } from './services/comments/module';
+import { CommentModule } from '@comments/module';
+import { SalePostModule } from '@sale-posts/module';
 
 @Module({
   imports: [
-    DatabaseModule,
-    HealthModule,
-    UserModule,
-    VerificationModule,
     ArticleModule,
     CategoryModule,
-    GuardModule,
-    FileModule,
     CommentModule,
+    FileModule,
+    SalePostModule,
+    UserModule,
+    VerificationModule,
+    DatabaseModule,
+    HealthModule,
+    GuardModule,
   ],
 })
 export class AppModule {}

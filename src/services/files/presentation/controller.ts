@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { isArray } from 'lodash';
 import { FileService } from '../application/service';

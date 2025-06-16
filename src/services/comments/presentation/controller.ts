@@ -23,7 +23,7 @@ export class CommentController {
     const { user } = req.state as { user: User };
     const { id } = param;
 
-    const data = await this.commentService.update({ user: user as User }, id, body);
+    const data = await this.commentService.update({ user }, id, body);
     return { data };
   }
 
@@ -33,6 +33,6 @@ export class CommentController {
     const { user } = req.state as { user: User };
     const { id } = param;
 
-    await this.commentService.delete({ user: user as User }, id);
+    await this.commentService.delete({ user }, id);
   }
 }
